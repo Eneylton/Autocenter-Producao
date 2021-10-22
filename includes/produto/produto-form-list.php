@@ -1,5 +1,6 @@
 <?php
 
+$categaorias = "";
 
 if (isset($_GET['status'])) {
 
@@ -63,8 +64,9 @@ foreach ($listar as $item) {
 
    $resultados .= '<tr>
                       <td style="display:none">' . $item->id . '</td>
-                      <td style="display:none">' . $item->codigo . '</td>
                       <td style="display:none">' . $item->barra . '</td>
+                      <td style="display:none">' . $item->fabricante . '</td>
+                      <td style="display:none">' . $item->veiculo . '</td>
                       <td style="display:none">' . $item->nome . '</td>
                       <td style="display:none">' . $item->foto . '</td>
                       <td style="display:none">' . $item->usuarios_id . '</td>
@@ -74,18 +76,22 @@ foreach ($listar as $item) {
                       <td style="display:none">' . $item->aplicacao . '</td>
                       <td style="display:none">' . $item->valor_compra . '</td>
                       <td style="display:none">' . $item->valor_venda . '</td>
+                      <td style="display:none">' . $item->fabricante_id . '</td>
+                      <td style="display:none">' . $item->veiculo_id . '</td>
                      
                       
                       <td><img style="width:80px; heigth:70px" src="../.' . $foto . '" class="img-thumbnail"></td>
-                      <td style="text-transform: uppercase; font-size:14px">' . $item->categoria . '</td>
-                      <td style="text-transform: uppercase; font-size:14px">' . $item->nome . '</td>
+                      <td style="text-transform: uppercase; font-size:small">' . $item->nome . '</td>
+                      <td style="text-transform: uppercase; font-size:small">' . $item->categoria . '</td>
+                      <td>' . $item->fabricante . '</td>
+                      <td>' . $item->veiculo . '</td>
                       <td style="text-align:center">
                         
                         <span style="font-size:16px" class="' . ($item->estoque <= 3 ? 'badge badge-danger' : 'badge badge-primary') . '">' . $item->estoque . '</span>
                         
                       </td>
-                      <td> <button type="button" class="btn btn-warning x-small"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
-                      <td> <button type="button" class="btn btn-info x-small"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
+                      <td> <button type="button" class="btn btn-dark x-small"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
+                      <td> <button type="button" class="btn btn-dark x-small"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
                     
 
                       <td style="text-align: center;">
@@ -103,7 +109,7 @@ foreach ($listar as $item) {
 }
 
 $resultados = strlen($resultados) ? $resultados : '<tr>
-                                                     <td colspan="7" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
+                                                     <td colspan="9" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
                                                      </tr>';
 
 
@@ -137,22 +143,44 @@ foreach ($paginas as $key => $pagina) {
                      <div class="row ">
                         <div class="col-3">
 
-                           <label>Código de barras</label>
-                           <input placeholder="Barras" type="text" class="form-control" name="buscar3" value="<?= $buscar3 ?>" autofocus>
+
+                           <label>Fabricante</label>
+                           <select class="form-control select2" style="width: 100%;" name="buscar2">
+                              <option value=""> Selecione um fabricante </option>
+                              <?php
+
+                              foreach ($fabricantes as $item) {
+                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                              }
+                              ?>
+
+                           </select>
+
 
                         </div>
                         <div class="col-3">
 
-                           <label>Buscar por Produto</label>
-                           <input placeholder="Nome do Produto" type="text" class="form-control" name="buscar" value="<?= $buscar ?>">
+
+                           <label>Veiculos</label>
+                           <select class="form-control select2" style="width: 100%;" name="buscar5">
+                              <option value=""> Selecione um veículo </option>
+                              <?php
+
+                              foreach ($veiculos as $item) {
+                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                              }
+                              ?>
+
+                           </select>
+
 
                         </div>
                         <div class="col-3">
 
 
                            <label>Categorias</label>
-                           <select class="form-control select2" style="width: 100%;" name="buscar2">
-                              <option value="<?= $buscar2 ?>"> Selecione uma categoria </option>
+                           <select class="form-control select2" style="width: 100%;" name="buscar3">
+                              <option value=""> Selecione uma categoria </option>
                               <?php
 
                               foreach ($categorias as $item) {
@@ -187,21 +215,22 @@ foreach ($paginas as $key => $pagina) {
 
                   <table class="table table-bordered table-dark table-bordered table-hover table-striped">
                      <thead>
-                     <tr>
-                              <td colspan="7">
-                                 <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#modal-default" > <i class="fas fa-plus"></i> &nbsp; Novo</button>
-                                  
-                                 <button type="submit" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fas fa-print"></i> &nbsp; IMPRIMIR RELATÓRIOS</button>
+                        <tr>
+                           <td colspan="9">
+                              <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#modal-default"> <i class="fas fa-plus"></i> &nbsp; Novo</button>
+
+                              <button type="submit" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fas fa-print"></i> &nbsp; IMPRIMIR RELATÓRIOS</button>
 
 
-                              </td>
-                           </tr>
+                           </td>
+                        </tr>
 
                         <tr>
                            <th> IMAGEM </th>
-                          
-                           <th> CATEGORIAS </th>
                            <th> NOME DO PRODUTO </th>
+                           <th> CATEGORIAS </th>
+                           <th> FABRICANTE </th>
+                           <th> VEÍCULO </th>
                            <th style="text-align:center"> ESTOQUE </th>
                            <th> COMPRA </th>
                            <th> VENDA </th>
@@ -244,7 +273,7 @@ foreach ($paginas as $key => $pagina) {
             </div>
             <div class="modal-body">
                <div class="row">
-                  <div class="col-lg-3 col-3">
+                  <div class="col-3">
                      <div id="divImgConta">
                         <?php if ($foto2 != "") { ?>
                            <img src="../../imgs/<?php echo $foto2 ?>" width=50%" id="target">
@@ -270,6 +299,13 @@ foreach ($paginas as $key => $pagina) {
                   </div>
                   <div class="col-6">
                      <div class="form-group">
+                        <label>Nome do produto</label>
+                        <input type="text" class="form-control" name="nome" style="text-transform: uppercase;">
+                     </div>
+
+                  </div>
+                  <div class="col-4">
+                     <div class="form-group">
                         <label>Categorias</label>
                         <select class="form-control select2" style="width: 100%;" name="categorias_id">
                            <option value=""> Selecione uma categoria </option>
@@ -284,19 +320,45 @@ foreach ($paginas as $key => $pagina) {
                      </div>
 
                   </div>
-
-               </div>
-
-               <div class="row">
-                  <div class="col-6">
+                  <div class="col-4">
                      <div class="form-group">
-                        <label>Nome do produto</label>
-                        <input type="text" class="form-control" name="nome" style="text-transform: uppercase;">
+                        <label>Fabricante</label>
+                        <select class="form-control select2" style="width: 100%;" name="fabricante_id">
+                           <option value=""> Selecione um fabricante </option>
+                           <?php
+
+                           foreach ($fabricantes as $item) {
+                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
+                     </div>
+
+                  </div>
+                  <div class="col-4">
+                     <div class="form-group">
+                        <label>Veiculo</label>
+                        <select class="form-control select2" style="width: 100%;" name="veiculo_id">
+                           <option value=""> Selecione um veiculo </option>
+                           <?php
+
+                           foreach ($veiculos as $item) {
+                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
                      </div>
 
                   </div>
 
-                  <div class="col-3">
+               </div>
+
+               <div class="row">
+                 
+
+                  <div class="col-4">
                      <div class="form-group">
                         <label>Compra</label>
                         <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_compra" id="compra1" required>
@@ -304,18 +366,14 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
 
-                  <div class="col-3">
+                  <div class="col-4">
                      <div class="form-group">
                         <label>Venda</label>
                         <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_venda" id="venda1" required>
                      </div>
 
                   </div>
-
-
-               </div>
-
-               <div class="row">
+                  
                   <div class="col-4">
                      <div class="form-group">
                         <label>Quantidade</label>
@@ -324,10 +382,15 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
 
-                  <div class="col-8">
+               </div>
+
+               <div class="row">
+                  
+
+                  <div class="col-12">
                      <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea class="form-control" name="aplicacao" cols="60" rows="5"  style="text-transform: uppercase;"></textarea>
+                        <label>Aplicação</label>
+                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" style="text-transform: uppercase;"></textarea>
                      </div>
 
                   </div>
@@ -365,7 +428,7 @@ foreach ($paginas as $key => $pagina) {
                <input type="hidden" name="id" id="id">
 
                <div class="row">
-                  <div class="col-lg-3 col-3">
+                  <div class="col-3">
                      <div id="divImgConta">
                         <?php if ($foto2 != "") { ?>
                            <img src="../../imgs/<?php echo $foto2 ?>" width=50%" id="target">
@@ -393,6 +456,13 @@ foreach ($paginas as $key => $pagina) {
                   </div>
                   <div class="col-6">
                      <div class="form-group">
+                        <label>Nome do produto</label>
+                        <input type="text" class="form-control" name="nome" style="text-transform: uppercase;" id="nome">
+                     </div>
+
+                  </div>
+                  <div class="col-4">
+                     <div class="form-group">
                         <label>Categorias</label>
                         <select class="form-control select" style="width: 100%;" name="categorias_id" id="categorias_id">
                            <option value=""> Selecione uma categoria </option>
@@ -407,19 +477,44 @@ foreach ($paginas as $key => $pagina) {
                      </div>
 
                   </div>
-
-               </div>
-
-               <div class="row">
-                  <div class="col-6">
+                  <div class="col-4">
                      <div class="form-group">
-                        <label>Nome do produto</label>
-                        <input type="text" class="form-control" name="nome" id="nome"  style="text-transform: uppercase;">
+                        <label>Veículos</label>
+                        <select class="form-control select" style="width: 100%;" name="veiculo_id" id="veiculo_id">
+                           <option value=""> Selecione um veiculos </option>
+                           <?php
+
+                           foreach ($veiculos as $item) {
+                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
+                     </div>
+
+                  </div>
+                  <div class="col-4">
+                     <div class="form-group">
+                        <label>Fabricantes</label>
+                        <select class="form-control select" style="width: 100%;" name="fabricante_id" id="fabricante_id">
+                           <option value=""> Selecione um fabricante </option>
+                           <?php
+
+                           foreach ($fabricantes as $item) {
+                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
                      </div>
 
                   </div>
 
-                  <div class="col-3">
+               </div>
+
+               <div class="row">
+              
+                  <div class="col-4">
                      <div class="form-group">
                         <label>Compra</label>
                         <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_compra" id="valor_compra">
@@ -427,18 +522,13 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
 
-                  <div class="col-3">
+                  <div class="col-4">
                      <div class="form-group">
                         <label>Venda</label>
                         <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_venda" id="valor_venda">
                      </div>
 
                   </div>
-
-
-               </div>
-
-               <div class="row">
                   <div class="col-4">
                      <div class="form-group">
                         <label>Quantidade</label>
@@ -447,10 +537,16 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
 
+
+               </div>
+
+               <div class="row">
+                  
+
                   <div class="col-8">
                      <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" id="aplicacao"  style="text-transform: uppercase;"></textarea>
+                        <label>Aplicação</label>
+                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" id="aplicacao" style="text-transform: uppercase;"></textarea>
                      </div>
 
                   </div>
@@ -472,71 +568,71 @@ foreach ($paginas as $key => $pagina) {
 </div>
 
 <div class="modal fade" id="modal-data">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content ">
-            <form action="./produto-gerar.php" method="GET" enctype="multipart/form-data">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+         <form action="./produto-gerar.php" method="GET" enctype="multipart/form-data">
 
-               <div class="modal-header">
-                  <h4 class="modal-title">Relatórios
-                  </h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="card-body">
+            <div class="modal-header">
+               <h4 class="modal-title">Relatórios
+               </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="card-body">
 
-                  <div class="form-group">
-
-                     <div class="row">
-
-                        <div class="col-lg-4 col-4">
-                           <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
-                        </div>
-
-
-                        <div class="col-lg-4 col-4">
-                           <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
-                        </div>
-
-
-                        <div class="col-lg-4 col-4">
-
-                           <select class="form-control select" name="categorias_id">
-                              <option value=""> Categorias </option>
-                              <?php
-
-                              foreach ($categorias as $item) {
-                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                              }
-                              ?>
-
-                           </select>
-
-                        </div>
-
-                     </div>
-                  </div>
+               <div class="form-group">
 
                   <div class="row">
-                  <div class="col-lg-8 col-8">
-                        <input placeholder="Nome do produto" class="form-control" type="text" name="nome">
-                     </div>
 
                      <div class="col-lg-4 col-4">
-                        <input placeholder="Código de barras" class="form-control" type="text" name="barra">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+
+                        <select class="form-control select" name="categorias_id">
+                           <option value=""> Categorias </option>
+                           <?php
+
+                           foreach ($categorias as $item) {
+                              echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
+
                      </div>
 
                   </div>
                </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                  <button type="submit" class="btn btn-primary">Gerar relatório</button>
+
+               <div class="row">
+                  <div class="col-lg-8 col-8">
+                     <input placeholder="Nome do produto" class="form-control" type="text" name="nome">
+                  </div>
+
+                  <div class="col-lg-4 col-4">
+                     <input placeholder="Código de barras" class="form-control" type="text" name="barra">
+                  </div>
+
                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+               <button type="submit" class="btn btn-primary">Gerar relatório</button>
+            </div>
 
-            </form>
+         </form>
 
-         </div>
-         <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
    </div>
+   <!-- /.modal-dialog -->
+</div>

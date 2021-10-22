@@ -67,6 +67,48 @@ $usuario = $usuariologado ?
                     }
 
                     ?>" style="display: none;">
+          <a href="../../pages/fabricante/fabricante-list.php" class="nav-link">Fabricante</a>
+        </li>
+        <li class="<?php
+
+                    switch ($acesso) {
+                      case '2':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '3':
+                        echo "";
+                        break;
+                      case '4':
+                        echo "";
+                        break;
+
+                      default:
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                    }
+
+                    ?>" style="display: none;">
+          <a href="../../pages/veiculo/veiculo-list.php" class="nav-link">Veículos</a>
+        </li>
+        <li class="<?php
+
+                    switch ($acesso) {
+                      case '2':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '3':
+                        echo "";
+                        break;
+                      case '4':
+                        echo "";
+                        break;
+
+                      default:
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                    }
+
+                    ?>" style="display: none;">
           <a href="../../pages/produtos/produto-list.php" class="nav-link">Produtos</a>
         </li>
 

@@ -49,6 +49,8 @@ if(isset($_FILES['arquivo'])){
             $item->valor_venda          = $_POST['valor_venda'];
             $item->aplicacao            = $_POST['aplicacao'];
             $item->estoque              = $_POST['estoque'];
+            $item->fabricante_id        = $_POST['fabricante_id'];
+            $item->veiculo_id           = $_POST['veiculo_id'];
             $item->status               = 0;
             $item->qtd                  = 0;
             $item->foto                 = $obUpload->getBasename();

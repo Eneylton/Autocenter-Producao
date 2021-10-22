@@ -10,10 +10,6 @@ $usuariologado = Login::getUsuarioLogado();
 $usuarios_nome = $usuariologado['nome'];
 $usuarios_email = $usuariologado['email'];
 
-$qtd = 0;
-$compra = 0;
-$venda = 0;
-
 Login::requireLogin();
 
 $dataInicio;
@@ -74,21 +70,18 @@ foreach ($listar as $item) {
     } else {
         $foto = $item->foto;
     }
-  
-    $compra += $item->valor_compra;
-    $venda += $item->valor_venda;
-    $qtd += $item->estoque;
+
 
     $res .= '   <tr>
                 
                         <td><img style="width:50px; heigth:30px" src="../.' . $foto . '" class="img-thumbnail"></td>
-                        <td style="text-align:left;width:80px">' . $item->barra . '</td>
-                        <td style="width:150px; text-align:left">' . date('d/m/Y à\s H:i:s', strtotime($item->data)) . '</td>
-                        <td style="text-transform: uppercase; width:250px; text-align:left">' . $item->categoria . '</td>
-                        <td style="text-transform: uppercase; width:250px; text-align:left">' . $item->nome . '</td>
-                        <td style="text-transform: uppercase;width:65px">' . $item->estoque . '</td>
-                        <td style="text-transform: uppercase; width:100px; text-align:left"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</td>
-                        <td style="text-transform: uppercase; width:100px; text-align:left">R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</td>
+                        <td style="text-align:left;">' . $item->barra . '</td>
+                        <td style="width:241px">' . date('d/m/Y à\s H:i:s', strtotime($item->data)) . '</td>
+                        <td style="text-transform: uppercase; width:200px">' . $item->categoria . '</td>
+                        <td style="text-transform: uppercase; width:200px">' . $item->nome . '</td>
+                        <td style="text-transform: uppercase;width:65px"">' . $item->estoque . '</td>
+                        <td style="text-transform: uppercase; width:100px""> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</td>
+                        <td style="text-transform: uppercase; width:100px">R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</td>
     
                 </tr>
                 ';
@@ -219,8 +212,8 @@ foreach ($listar as $item) {
                 <td >IMG</td>
                 <td style="text-align:left;"> BARRA </td>
                 <td > DATA CADASTRO </td>
-                <td style="text-align:left"> CATEGORIA </td>
-                <td style="text-align:left"> NOME </td>
+                <td> CATEGORIA </td>
+                <td> NOME </td>
                 <td> QTD </td>
                 <td> COMPRA </td>
                 <td> VENDA </td>
@@ -228,13 +221,6 @@ foreach ($listar as $item) {
             </tr>
 
             <?= $res ?>
-
-            <tr style="background-color:#d1d1d1; color:#000">
-                <td style="text-align: right; text-transform:uppercase" colspan="5">TOTAL</td>
-                <td><?= $qtd ?></td>
-                <td style="text-align:left">R$ <?= number_format($compra,"2",",",".") ?></td>
-                <td style="text-align:left">R$ <?=  number_format($venda,"2",",",".") ?></td>
-            </tr>
 
 
         </tbody>
