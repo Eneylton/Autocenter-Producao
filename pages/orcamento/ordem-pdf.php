@@ -110,14 +110,6 @@ $clienteNumero = $clientes->numero;
 $clienteLocalidade = $clientes->localidade;
 $clienteUF = $clientes->uf;
 
-unset($_SESSION['orcamentos-venda']);
-unset($_SESSION['orcamentos-clientes']);
-unset($_SESSION['carrinho2']);
-
-header('location: orcamento-pagamento.php?status=success');
-
-exit;
-
 ?>
 
 <!DOCTYPE html>
@@ -214,3 +206,11 @@ exit;
 
 </body>
 </html>
+
+<?php
+
+unset($_SESSION['orcamentos-venda']);
+unset($_SESSION['orcamentos-clientes']);
+unset($_SESSION['carrinho2']);
+
+?>
