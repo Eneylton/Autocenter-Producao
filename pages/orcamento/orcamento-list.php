@@ -9,6 +9,9 @@ use App\Webservice\ViaCEP;
 define('TITLE','Orçamentos');
 define('BRAND','Finaceiro');
 
+Login::requireLogin();
+
+
 
 if (isset($_POST['id'])){
 
@@ -31,9 +34,6 @@ if (isset($_POST['id'])){
     $cep  = "";
 }
 
-
-
-Login::requireLogin();
 
 
 $buscar = filter_input(INPUT_GET, 'buscar', FILTER_SANITIZE_STRING);

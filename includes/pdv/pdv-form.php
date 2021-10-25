@@ -230,22 +230,8 @@ foreach ($paginas as $key => $pagina) {
             </a></td>
             </tr>
             ';
-
-      array_push(
-        $_SESSION['dados-venda'],
-
-        array(
-          'nome'         => $nome,
-          'codigo'       => $item->codigo,
-          'barra'        => $item->barra,
-          'qtd'          => $qtd,
-          'valor_venda'  => $valor1,
-          'subtotal'     => $sub,
-          'desconto'     => $porcento,
-          'produtos_id'  => $id
-        )
-      );
     }
+     
 
     ?>
 

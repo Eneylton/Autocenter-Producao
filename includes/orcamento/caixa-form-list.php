@@ -179,7 +179,7 @@ if (isset($_GET['cliente_id'])) {
         </div>
 
         <hr>
-        <form action="orcamento-insert.php" method="post">
+        <form action="orcamento-list.php" method="post">
 
           <div class="row">
 
@@ -214,7 +214,7 @@ if (isset($_GET['cliente_id'])) {
 
             </div>
             <div class="col-4">
-              <button type="submit" class="btn btn-warning btn-lg btn-block" style="margin-top: 10px;">ENVIAR</button>
+              <button type="submit" class="btn btn-warning btn-lg btn-block" style="margin-top: 10px;">NOVO ORÇAMENTO</button>
 
             </div>
 

@@ -69,6 +69,12 @@ class Veiculo
             ->fetchObject(self::class);
     }
 
+
+    public static function getFabricID($fields, $table, $where, $order, $limit)
+    {
+        return (new Database('veiculo'))->select($fields, $table, 'fabricante_id = ' . $where, $order, $limit)
+        ->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
  
 
     public function excluir()

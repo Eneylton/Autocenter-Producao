@@ -15,6 +15,17 @@ Login::requireLogin();
 
 $foto2 = "";
 
+if(isset($_POST['id'])){
+    $id= $_POST['id'];
+
+    $veiculos = Veiculo:: getFabricID('*','veiculo',$_POST['id'],null,null );
+
+    foreach ($veiculos as $item) {
+        echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+     }
+    
+}
+
 $buscar2 = filter_input(INPUT_GET, 'buscar2', FILTER_SANITIZE_STRING);
 $buscar3 = filter_input(INPUT_GET, 'buscar3', FILTER_SANITIZE_STRING);
 $buscar5 = filter_input(INPUT_GET, 'buscar5', FILTER_SANITIZE_STRING);
@@ -25,8 +36,8 @@ $id5 = (int)$buscar5;
 
 $condicoes = [
 
-    strlen($buscar2) ? 'p.fabricante_id = ' . str_replace(' ', '', $id2) . '' : null,
-    strlen($buscar3) ? 'p.categorias_id = ' . str_replace(' ', '', $id3) . '' : null,
+    strlen($buscar2) ? 'p.categorias_id = ' . str_replace(' ', '', $id2) . '' : null,
+    strlen($buscar3) ? 'p.fabricante_id = ' . str_replace(' ', '', $id3) . '' : null,
     strlen($buscar5) ? 'p.veiculo_id = ' . str_replace(' ', '', $id5) . '' : null,
     
 ];
@@ -34,7 +45,6 @@ $condicoes = [
 $condicoes = array_filter($condicoes);
 
 $where = implode(' AND ', $condicoes);
-
 
 $condicoes = array_filter($condicoes);
 
@@ -49,11 +59,11 @@ $listar = Produto::getList('p.id AS id,p.fabricante_id as fabricante_id,p.veicul
                             p.valor_compra AS valor_compra,p.valor_venda AS valor_venda,p.categorias_id AS categorias_id,c.nome AS categoria,
                             f.nome AS fabricante,v.nome AS veiculo',
                             //TABELAS
-                            'produtos AS p INNER JOIN fabricante AS f ON (p.fabricante_id = f.id)
-                             INNER JOIN veiculo AS v ON (p.veiculo_id = v.id)
-                             INNER JOIN categorias AS c ON (p.categorias_id = c.id)',$where, 'p.id DESC',$pagination->getLimit());
+                                'produtos AS p INNER JOIN fabricante AS f ON (p.fabricante_id = f.id)
+                                INNER JOIN veiculo AS v ON (p.veiculo_id = v.id)
+                                INNER JOIN categorias AS c ON (p.categorias_id = c.id)',$where, 'p.id DESC',$pagination->getLimit());
 
-$categorias = Categoria :: getList('*','categorias');
+$categorias = Categoria :: getList('*','categorias',null,'nome ASC');
 $fabricantes = Fabricante :: getList('*','fabricante');
 $veiculos = Veiculo :: getList('*','veiculo');
 
@@ -122,6 +132,27 @@ $(document).ready(function(){
 
 <script>
 
+$("#valor_compra1").on("change", function(){
+
+    var idCompra = $("#valor_compra1").val();
+    $.ajax({
+        url:'produto-list.php',
+        type:'POST',
+        data:{
+            id:idCompra
+        },
+        success: function(data){
+            $('#valor_venda1').val(Number((idCompra) / 0.40).toFixed(2));
+        }
+
+    })
+
+});
+
+</script> 
+
+<script>
+
 $("#valor_compra").on("change", function(){
 
     var idCompra = $("#valor_compra").val();
@@ -142,22 +173,68 @@ $("#valor_compra").on("change", function(){
 </script> 
 
 <script>
-
-$("#compra1").on("change", function(){
-
-    var idCompra = $("#compra1").val();
-    $.ajax({
-        url:'produto-list.php',
-        type:'POST',
-        data:{
-            id:idCompra
-        },
-        success: function(data){
-            $('#venda1').val(Number((idCompra) / 0.40).toFixed(2));
-        }
-
-    })
+$("#fabric").on("change", function(){
+   
+   var idEstado = $("#fabric").val();
+   $.ajax({
+       url:'produto-list.php',
+       type:'POST',
+       data:{id:idEstado},
+       beforeSend:function(){
+           $("#vei").css({'display':'block'});
+           $("#vei").html("carregando....");
+       },
+       success:function(data){
+           $("#vei").css({'display':'block'});
+           $("#vei").html(data);
+       }
+   })
 
 });
 
-</script> 
+</script>
+
+<script>
+$("#fabric1").on("change", function(){
+   
+   var idEstado = $("#fabric1").val();
+   $.ajax({
+       url:'produto-list.php',
+       type:'POST',
+       data:{id:idEstado},
+       beforeSend:function(){
+           $("#vei1").css({'display':'block'});
+           $("#vei1").html("carregando....");
+       },
+       success:function(data){
+           $("#vei1").css({'display':'block'});
+           $("#vei1").html(data);
+       }
+   })
+
+});
+
+</script>
+
+<script>
+$("#fabricante_id").on("change", function(){
+   
+   var idEstado = $("#fabricante_id").val();
+   $.ajax({
+       url:'produto-list.php',
+       type:'POST',
+       data:{id:idEstado},
+       beforeSend:function(){
+           $("#vei2").css({'display':'block'});
+           $("#vei2").html("carregando....");
+       },
+       success:function(data){
+           $("#vei2").css({'display':'block'});
+           $("#vei2").html(data);
+       }
+   })
+
+});
+
+</script>
+

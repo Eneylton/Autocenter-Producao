@@ -84,7 +84,7 @@ foreach ($listar as $item) {
                     
                       <td style="text-align: center; width:300px">
 
-                       <a href="finalizar-orcamento.php?id=' . $item->clientes_id . '">
+                       <a href="orcamento-finalizar.php?id=' . $item->clientes_id . '">
                        <button type="button" class="btn btn-default"> <i class="fas fa-check"></i> &nbsp; FINALIZAR ORÇAMENTO</button>
                        </a>
 

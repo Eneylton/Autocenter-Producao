@@ -85,6 +85,12 @@ class Produtotemp
             ->fetchObject(self::class);
     }
 
+    public static function getClientID($fields, $table, $where, $order, $limit)
+    {
+        return (new Database('produto_temp'))->select($fields, $table, 'clientes_id = ' . $where, $order, $limit)
+            ->fetchObject(self::class);
+    }
+
    
 
     public function excluir()

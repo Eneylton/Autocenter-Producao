@@ -57,7 +57,7 @@ $resultados = '';
 foreach ($listar as $item) {
 
    if (empty($item->foto)) {
-      $foto = 'imgs/sem.jpg';
+      $foto = '../../imgs/sem.jpg';
    } else {
       $foto = $item->foto;
    }
@@ -81,17 +81,17 @@ foreach ($listar as $item) {
                      
                       
                       <td><img style="width:80px; heigth:70px" src="../.' . $foto . '" class="img-thumbnail"></td>
-                      <td style="text-transform: uppercase; font-size:small">' . $item->nome . '</td>
                       <td style="text-transform: uppercase; font-size:small">' . $item->categoria . '</td>
                       <td>' . $item->fabricante . '</td>
                       <td>' . $item->veiculo . '</td>
+                      <td style="text-transform: uppercase; font-size:small">' . $item->nome . '</td>
                       <td style="text-align:center">
                         
-                        <span style="font-size:16px" class="' . ($item->estoque <= 3 ? 'badge badge-danger' : 'badge badge-primary') . '">' . $item->estoque . '</span>
+                        <span style="font-size:16px" class="' . ($item->estoque <= 3 ? 'badge badge-danger' : 'badge badge-success') . '">' . $item->estoque . '</span>
                         
                       </td>
-                      <td> <button type="button" class="btn btn-dark x-small"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
-                      <td> <button type="button" class="btn btn-dark x-small"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
+                      <td> <button type="button" class="btn btn-default x-small"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
+                      <td> <button type="button" class="btn btn-warning x-small"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
                     
 
                       <td style="text-align: center;">
@@ -142,71 +142,60 @@ foreach ($paginas as $key => $pagina) {
                   <form method="get">
                      <div class="row ">
                         <div class="col-3">
+                           <div class="form-group">
+                              <label>Categorias</label>
+                              <select class="form-control" style="width: 100%;" name="buscar2">
+                                 <option value=""> Selecione uma categoria </option>
+                                 <?php
+
+                                 foreach ($categorias as $item) {
+                                    echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                                 }
+                                 ?>
+
+                              </select>
 
 
-                           <label>Fabricante</label>
-                           <select class="form-control select2" style="width: 100%;" name="buscar2">
-                              <option value=""> Selecione um fabricante </option>
-                              <?php
+                           </div>
 
-                              foreach ($fabricantes as $item) {
-                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                              }
-                              ?>
+                        </div>
 
-                           </select>
+                        <div class="col-3">
+
+                           <div class="form-group">
+                              <label>Fabricantes</label>
+                              <select class="form-control select" style="width: 100%;" name="buscar3" id="fabric">
+                                 <option value=""> Selecione um fabricante </option>
+                                 <?php
+
+                                 foreach ($fabricantes as $item) {
+                                    echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                                 }
+                                 ?>
+
+                              </select>
+                           </div>
 
 
                         </div>
                         <div class="col-3">
-
-
                            <label>Veiculos</label>
-                           <select class="form-control select2" style="width: 100%;" name="buscar5">
-                              <option value=""> Selecione um veículo </option>
-                              <?php
+                           <div class="form-group">
+                              <select class="form-control" name="buscar5" id="vei"></select>
 
-                              foreach ($veiculos as $item) {
-                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                              }
-                              ?>
-
-                           </select>
-
+                           </div>
 
                         </div>
                         <div class="col-3">
+                                 <button style="margin-top: 30px;" type="submit" class="btn btn-warning" name="">
+                                    <i class="fas fa-search"></i>
 
+                                    Pesquisar
 
-                           <label>Categorias</label>
-                           <select class="form-control select2" style="width: 100%;" name="buscar3">
-                              <option value=""> Selecione uma categoria </option>
-                              <?php
+                                 </button>
 
-                              foreach ($categorias as $item) {
-                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                              }
-                              ?>
+                              </div>
 
-                           </select>
-
-
-                        </div>
-
-
-
-                        <div class="col d-flex align-items-end">
-                           <button type="submit" class="btn btn-warning" name="">
-                              <i class="fas fa-search"></i>
-
-                              Pesquisar
-
-                           </button>
-
-                        </div>
-
-
-                     </div>
 
                   </form>
                </div>
@@ -227,10 +216,10 @@ foreach ($paginas as $key => $pagina) {
 
                         <tr>
                            <th> IMAGEM </th>
-                           <th> NOME DO PRODUTO </th>
                            <th> CATEGORIAS </th>
                            <th> FABRICANTE </th>
                            <th> VEÍCULO </th>
+                           <th> NOME DO PRODUTO </th>
                            <th style="text-align:center"> ESTOQUE </th>
                            <th> COMPRA </th>
                            <th> VENDA </th>
@@ -307,7 +296,7 @@ foreach ($paginas as $key => $pagina) {
                   <div class="col-4">
                      <div class="form-group">
                         <label>Categorias</label>
-                        <select class="form-control select2" style="width: 100%;" name="categorias_id">
+                        <select class="form-control" style="width: 100%;" name="categorias_id">
                            <option value=""> Selecione uma categoria </option>
                            <?php
 
@@ -321,34 +310,28 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
                   <div class="col-4">
-                     <div class="form-group">
-                        <label>Fabricante</label>
-                        <select class="form-control select2" style="width: 100%;" name="fabricante_id">
-                           <option value=""> Selecione um fabricante </option>
-                           <?php
+                  <div class="form-group">
+                              <label>Fabricantes</label>
+                              <select class="form-control" style="width: 100%;" name="fabricante_id" id="fabric1">
+                                 <option value=""> Selecione um fabricante </option>
+                                 <?php
 
-                           foreach ($fabricantes as $item) {
-                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
+                                 foreach ($fabricantes as $item) {
+                                    echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                                 }
+                                 ?>
 
-                        </select>
-                     </div>
+                              </select>
+                           </div>
 
                   </div>
                   <div class="col-4">
                      <div class="form-group">
-                        <label>Veiculo</label>
-                        <select class="form-control select2" style="width: 100%;" name="veiculo_id">
-                           <option value=""> Selecione um veiculo </option>
-                           <?php
+                     <label>Veiculos</label>
+                           <div class="form-group">
+                              <select class="form-control" name="veiculo_id" id="vei1"></select>
 
-                           foreach ($veiculos as $item) {
-                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
-
-                        </select>
+                           </div>
                      </div>
 
                   </div>
@@ -356,12 +339,12 @@ foreach ($paginas as $key => $pagina) {
                </div>
 
                <div class="row">
-                 
+
 
                   <div class="col-4">
                      <div class="form-group">
                         <label>Compra</label>
-                        <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_compra" id="compra1" required>
+                        <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_compra" id="valor_compra1" required>
                      </div>
 
                   </div>
@@ -369,11 +352,11 @@ foreach ($paginas as $key => $pagina) {
                   <div class="col-4">
                      <div class="form-group">
                         <label>Venda</label>
-                        <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_venda" id="venda1" required>
+                        <input placeholder="R$ 0,00" type="text" class="form-control" name="valor_venda" id="valor_venda1" required>
                      </div>
 
                   </div>
-                  
+
                   <div class="col-4">
                      <div class="form-group">
                         <label>Quantidade</label>
@@ -385,7 +368,7 @@ foreach ($paginas as $key => $pagina) {
                </div>
 
                <div class="row">
-                  
+
 
                   <div class="col-12">
                      <div class="form-group">
@@ -478,42 +461,37 @@ foreach ($paginas as $key => $pagina) {
 
                   </div>
                   <div class="col-4">
-                     <div class="form-group">
-                        <label>Veículos</label>
-                        <select class="form-control select" style="width: 100%;" name="veiculo_id" id="veiculo_id">
-                           <option value=""> Selecione um veiculos </option>
-                           <?php
+                  <div class="form-group">
+                              <label>Fabricantes</label>
+                              <select class="form-control" style="width: 100%;" name="fabricante_id" id="fabricante_id">
+                                 <option value=""> Selecione um fabricante </option>
+                                 <?php
 
-                           foreach ($veiculos as $item) {
-                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
+                                 foreach ($fabricantes as $item) {
+                                    echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                                 }
+                                 ?>
 
-                        </select>
-                     </div>
+                              </select>
+                           </div>
 
                   </div>
                   <div class="col-4">
                      <div class="form-group">
-                        <label>Fabricantes</label>
-                        <select class="form-control select" style="width: 100%;" name="fabricante_id" id="fabricante_id">
-                           <option value=""> Selecione um fabricante </option>
-                           <?php
+                     <label>Veiculos</label>
+                           <div class="form-group">
+                              <select class="form-control" name="veiculo_id" id="vei2"></select>
 
-                           foreach ($fabricantes as $item) {
-                              echo '<option style="text-transform:uppercase;" value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
-
-                        </select>
+                           </div>
                      </div>
 
                   </div>
+                 
 
                </div>
 
                <div class="row">
-              
+
                   <div class="col-4">
                      <div class="form-group">
                         <label>Compra</label>
@@ -541,7 +519,7 @@ foreach ($paginas as $key => $pagina) {
                </div>
 
                <div class="row">
-                  
+
 
                   <div class="col-8">
                      <div class="form-group">

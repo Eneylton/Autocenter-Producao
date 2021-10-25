@@ -1,12 +1,12 @@
 <?php
 require __DIR__ . '../../../vendor/autoload.php';
 
-use  \App\Db\Pagination;
+use App\Db\Pagination;
 use App\Entidy\Categoria;
-use   \App\Session\Login;
+use App\Session\Login;
 
 define('TITLE','Lista de Categorias');
-define('BRAND','Cargos');
+define('BRAND','Categorias');
 
 
 Login::requireLogin();
@@ -27,7 +27,7 @@ $where = implode(' AND ', $condicoes);
 
 $qtd = Categoria:: getQtd($where);
 
-$pagination = new Pagination($qtd, $_GET['pagina'] ?? 1, 5);
+$pagination = new Pagination($qtd, $_GET['pagina'] ?? 1, 100);
 
 $listar = Categoria::getList('*','categorias',$where, 'id desc',$pagination->getLimit());
 

@@ -8,10 +8,20 @@ use App\Session\Login;
 
 $value = Clientes:: getID('*','clientes',$_GET['id'],null,null);
 
-$cliente_id = $value->id;
-$cliente = $value->nome;
+$cliente_id            = $value->id;
+$cliente_nome          = $value->nome;
+$telefone              = $value->telefone;
+$cep                   = $value->cep;
+$email                 = $value->email;
+$uf                    = $value->uf;
+$localidade            = $value->localidade;
+$logradouro            = $value->logradouro;
+$numero                = $value->numero;
+$bairro                = $value->bairro;
+$complemento           = $value->complemento;
 
-define('TITLE','Cliente: '.$cliente);
+
+define('TITLE','Cliente: '.$cliente_nome );
 define('BRAND','Finaceiro');
 
 Login::requireLogin();
@@ -19,9 +29,9 @@ Login::requireLogin();
 
 $foto2 = "";
 
-$buscar = filter_input(INPUT_GET, 'buscar', FILTER_SANITIZE_STRING);
-$buscar2 = filter_input(INPUT_GET, 'buscar2', FILTER_SANITIZE_STRING);
-$buscar3 = filter_input(INPUT_GET, 'buscar3', FILTER_SANITIZE_STRING);
+$buscar  =  filter_input(INPUT_GET, 'buscar', FILTER_SANITIZE_STRING);
+$buscar2 =  filter_input(INPUT_GET, 'buscar2', FILTER_SANITIZE_STRING);
+$buscar3 =  filter_input(INPUT_GET, 'buscar3', FILTER_SANITIZE_STRING);
 
 $id = (int)$buscar2;
 
@@ -65,12 +75,31 @@ $listar = Produto::getList('p.id as id,
                              categorias AS c ON (p.categorias_id = c.id)',$where, 'p.id DESC',$pagination->getLimit());
 
 
+//SELECT ALL
+
+if (isset($_POST['submit'])) {
+
+    if (isset($_POST['id'])) {
+  
+      foreach ($_POST['id'] as $id) {
+      if (isset($_POST['id'])) {
+  
+          $id  = intval($id);
+        
+          echo "ok";
+  }
+}
+}
+}
+
+
 include __DIR__ . '../../../includes/layout/header.php';
 include __DIR__ . '../../../includes/layout/top.php';
 include __DIR__ . '../../../includes/layout/menu.php';
 include __DIR__ . '../../../includes/layout/content.php';
 include __DIR__ . '../../../includes/orcamento/produto-form-list.php';
 include __DIR__ . '../../../includes/layout/footer.php';
+
 
 ?>
 

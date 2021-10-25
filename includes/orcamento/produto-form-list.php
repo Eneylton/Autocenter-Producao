@@ -7,7 +7,7 @@ $resultados = '';
 foreach ($listar as $item) {
    if (empty($item->foto)) {
 
-      $foto = 'imgs/sem.jpg';
+      $foto = '../../imgs/sem.jpg';
    } else {
 
       $foto = $item->foto;
@@ -60,7 +60,7 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
 
         array(
           'cliente_id'         => $cliente_id,
-          'cliente_nome'       => $cliente         
+          'cliente_nome'       => $cliente_nome         
 
         )
       );

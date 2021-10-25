@@ -23,6 +23,8 @@ class Produto
     public $aplicacao;
     public $valor_compra;
     public $valor_venda;
+    public $fabricante_id;
+    public $veiculo_id;
 
 
     public function cadastar()
@@ -44,7 +46,9 @@ class Produto
             'estoque'                 => $this->estoque,
             'aplicacao'               => $this->aplicacao,
             'valor_compra'            => $this->valor_compra,
-            'valor_venda'             => $this->valor_venda
+            'valor_venda'             => $this->valor_venda,
+            'fabricante_id'           => $this->fabricante_id,
+            'veiculo_id'              => $this->veiculo_id
           
 
         ]);
@@ -68,7 +72,10 @@ class Produto
             'estoque'                 => $this->estoque,
             'aplicacao'               => $this->aplicacao,
             'valor_compra'            => $this->valor_compra,
-            'valor_venda'             => $this->valor_venda
+            'valor_venda'             => $this->valor_venda,
+            'fabricante_id'           => $this->fabricante_id,
+            'veiculo_id'              => $this->veiculo_id
+          
 
         ]);
     }

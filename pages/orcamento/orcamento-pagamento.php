@@ -27,7 +27,7 @@ $qtd = Orcamento:: getQtd($where);
 
 $pagination = new Pagination($qtd, $_GET['pagina'] ?? 1, 50);
 
-$listar = Orcamento::getList('  o.id,
+$listar = Orcamento::getList('o.id,
 o.forma_pagamento_id,
 o.clientes_id,
 o.codigo,

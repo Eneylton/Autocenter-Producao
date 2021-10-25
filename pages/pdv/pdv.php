@@ -2,14 +2,11 @@
 
 require __DIR__ . '../../../vendor/autoload.php';
 
-use   \App\Entidy\Produto;
-use   \App\Entidy\Servico;
-use   \App\Entidy\Mecanico;
-use   \App\Entidy\Marca;
-use   \App\Db\Pagination;
+use App\Entidy\Produto;
+use App\Db\Pagination;
 use App\Entidy\Clientes;
 use App\Entidy\FormaPagamento;
-use   \App\Session\Login;
+use App\Session\Login;
 
 
 define('TITLE', 'Caixa');
